@@ -21,6 +21,7 @@ import Soiled
 
 
 if __name__ == '__main__':
+    print("Num GPUs Available: ", len(tf.config.list_physical_devices('GPU')))
     parser = argparse.ArgumentParser(description='provide arguments for cycle GAN implemetation')
     
     # general parameters
@@ -61,6 +62,7 @@ if __name__ == '__main__':
 
 
     dataset, metadata = tfds.load('Soiled',with_info=True, as_supervised=True)
+    
     train_unsoiled, train_soiled = dataset['trainA'], dataset['trainB']
     test_unsoiled, test_soiled = dataset['testA'], dataset['testB']
 
@@ -77,5 +79,5 @@ if __name__ == '__main__':
 
     train_dataset = tf.data.Dataset.zip((train_unsoiled, train_soiled))
     cyclegan = CycleGAN(epochs = 10, enable_function=True, path = results_dir)
-    cyclegan.train(train_dataset, sample_soiled_image, chkpoint_step = args['chkpoint_step'])
+    cyclegan.train(train_dataset, sample_soiled_image, sample_unsoiled_image, chkpoint_step = args['chkpoint_step'])
 

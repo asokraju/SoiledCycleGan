@@ -413,7 +413,7 @@ class CycleGAN(object):
         self.summary_step = self.summary_step + 1
         return total_gen_g_loss, total_gen_f_loss, disc_x_loss,  disc_y_loss
     
-    def train(self, dataset, sample_soiled_image, sample_unsoiled_image, chkpoint_step = 1):
+    def train(self, dataset, sample_soiled_image, sample_unsoiled_image, chkpoint_step = 10):
         time_list = []
         if self.enable_function:
             self.train_step = tf.function(self.train_step)
